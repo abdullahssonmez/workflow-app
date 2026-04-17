@@ -1,66 +1,62 @@
-# Workflow & Request Management System 🚀
+# Workflow Management System
 
-A comprehensive, full-stack web application designed to streamline business operations, handle customer requests (tickets), and facilitate real-time team collaboration. 
+## Overview
+Workflow Management System is a full-stack web application designed for processing business workflows, managing customer requests, and coordinating inter-departmental tasks. The architecture leverages a decoupled frontend and backend approach, utilizing real-time bidirectional event-based communication for synchronous state updates.
 
-This project was built focusing on performance, scalability, and an intuitive user experience.
-
-## ✨ Key Features
-
-- **Real-Time Communication**: Instant messaging and live notifications powered by Socket.IO.
-- **Customer & Workflow Management**: Create, track, and update customer requests seamlessly through custom stages.
-- **Task & Calendar Integration**: Team members can easily track their daily tasks and deadlines on an interactive calendar.
-- **Secure File Uploads**: Efficient document handling and secure file storage (Multer).
-- **Multi-Channel Notifications**: Built-in integrations for SMTP (Email) and NetGSM (SMS) for critical alerts.
-- **Role-Based Access Control (RBAC)**: Secure routing and data access policies based on user permissions.
-
-## 🛠️ Technology Stack
+## System Architecture
 
 ### Frontend
-- **Framework:** React.js powered by Vite for lightning-fast HMR and building.
-- **Styling:** Tailwind CSS for a highly responsive, modern UI.
-- **State Management & Routing:** React Router DOM.
+- **Framework**: React.js with Vite for optimized component compilation and sub-second HMR.
+- **Styling**: Tailwind CSS, utilizing a utility-first approach for consistent UI metrics.
+- **Routing**: React Router DOM enforcing proper application state boundaries.
 
 ### Backend
-- **Core:** Node.js, Express.js
-- **Database:** PostgreSQL (with robust DB connection pooling).
-- **Real-Time Engine:** Socket.IO
-- **Security:** JWT Authentication, bcrypt password hashing.
+- **Core**: Node.js and Express.js providing RESTful API endpoints.
+- **Persistence**: PostgreSQL, managed with robust connection pooling.
+- **Asynchronous Communication**: Socket.IO serving low-latency web sockets.
+- **Authentication**: JWT-based stateless authentication with bcrypt password hashing mechanisms.
 
-### Infrastructure & Deployment
-- **Web Server / Proxy:** Nginx (with Let's Encrypt SSL)
-- **Process Manager:** PM2 (running the Node app persistently).
-- **Deployment Platform:** Ubuntu / Linux server
+### Infrastructure
+- **Reverse Proxy**: Nginx.
+- **Process Management**: PM2 configured for execution and automated fallback.
+- **Third-party Integrations**: SMTP for transactional emails, Webhook/HTTP integration for NetGSM SMS services.
 
-## 📂 Project Structure
+## Application Structure
+- `client/` - Frontend single-page application (SPA).
+- `server/` - Backend Node.js service containing controllers, routes, and data models.
+- `ecosystem.config.example.js` - Baseline declarative configuration for PM2.
+- `nginx.conf` - Base Nginx directives for static file serving and reverse proxy to the Node.js API.
+- `MANUAL_GUIDE.md` - Standard operating procedure for manual bare-metal deployment.
 
-The repository is organized seamlessly into client and server domains:
+## Installation
 
-- `/client` - Contains all frontend React components, pages, and assets.
-- `/server` - Houses the Express API, controllers, routing, and database configurations.
-- `ecosystem.config.example.js` - Sample PM2 configuration for zero-downtime server operations.
-- `nginx.conf` - Production Nginx reverse-proxy setup.
-- `MANUAL_GUIDE.md` - Complete documentation for manual server deployment.
+### Prerequisites
+- Node.js (v18.x or higher recommended)
+- PostgreSQL (v14.x or higher)
 
-## 🚀 Getting Started (Local Development)
+### Environment Configuration
+1. Clone the repository and navigate to the `server` directory.
+2. Replicate the example environment variable file:
+   ```bash
+   cp .env.example .env
+   ```
+3. Populate the `.env` parameters corresponding to your local PostgreSQL instance and cryptographic secrets.
 
-### 1. Database Setup
-Ensure PostgreSQL is running locally and create your database:
-```sql
-CREATE DATABASE workflow_db;
+### Backend Setup
+Execute the following commands within the `/server` directory to provision modules and initialize the API:
+```bash
+npm install
+npm run dev
 ```
+The REST API defaults to listening on TCP port 5000.
 
-### 2. Backend Setup
-1. Navigate to the server folder: `cd server`
-2. Install dependencies: `npm install`
-3. Copy the environment file: `cp .env.example .env` and fill in your DB credentials.
-4. Run locally: `npm run dev` (Runs on port 5000)
+### Frontend Setup
+Execute the following commands within the `/client` directory to initiate the development environment:
+```bash
+npm install
+npm run dev
+```
+The SPA automatically binds to the local Vite dev server on port 5173.
 
-### 3. Frontend Setup
-1. Navigate to the client folder: `cd client`
-2. Install dependencies: `npm install`
-3. Start the Vite development server: `npm run dev`
-4. Access the UI at `http://localhost:5173`
-
-## 📖 Deployment
-
-For detailed production deployment instructions using FileZilla, PM2, and Nginx, please refer to the [Manual Deployment Guide](./MANUAL_GUIDE.md).
+## Deployment Guidelines
+Refer to the `MANUAL_GUIDE.md` document for structural deployment parameters onto a Linux-based production server.
