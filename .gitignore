@@ -1,0 +1,23 @@
+# Bağımlılıklar
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Üretim Derleme Dosyaları
+client/dist/
+client/build/
+dist/
+
+# Ortam ve Gizli Dosyalar
+.env
+.env.*
+!.env.example
+ecosystem.config.js
+!ecosystem.config.example.js
+
+# Kullanıcı Yüklemeleri
+server/uploads/*
+!server/uploads/.gitkeep
+
+.DS_Store
+Thumbs.db
